@@ -7,6 +7,7 @@ function documentOnReady() {
 
 		let swiperVisit = new Swiper('.slider-visit', {
 			enabled: false,
+			mousewheel: true,
 			breakpoints: {
 				1280: {
 					enabled: true,
@@ -25,8 +26,18 @@ function documentOnReady() {
 
 			}
 		})
-	}
 
+		function checkScreenWidth() {
+			if (window.innerWidth <= 1279) {
+				swiperVisit.destroy(true, true);
+			}
+		}
+
+		checkScreenWidth();
+
+		window.addEventListener('resize', checkScreenWidth);
+
+	}
 
 }
 
