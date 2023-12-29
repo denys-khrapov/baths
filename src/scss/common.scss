@@ -7,6 +7,14 @@
     margin: unset;
   }
 }
+.df-124 {
+  @media (min-width: $pc) {
+    @include adaptiveValue("padding-left", 124, 24, 2, 1380, 1280);
+    padding-right: 52px;
+    max-width: 100%;
+    margin: unset;
+  }
+}
 .demon-card {
   display: flex;
   flex-direction: column;
