@@ -257,6 +257,7 @@
   padding: 0 16px;
   @media (min-width: $pc) {
     padding: 0;
+    max-width: 1396px;
   }
   .swiper-button-prev {
     &::before {
@@ -322,9 +323,25 @@
   }
   // .nav-slider__scrollbar-wrapper
   &__scrollbar-wrapper {
+    width: 100%;
     @media (min-width: $pc) {
-      width: 100%;
       max-width: 1284px;
     }
+  }
+}
+.category {
+  width: fit-content;
+  color: var(--Banya-Brown-50);
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.1px;
+  text-transform: uppercase;
+  padding: 8px 4px;
+  border-radius: 8px;
+  background: var(--Banya-Graphite-source);
+  @media (min-width: $pc) {
+    font-size: 12px;
+    letter-spacing: 0.12px;
+    padding: 12px 8px;
   }
 }
