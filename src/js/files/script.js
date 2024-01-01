@@ -6,6 +6,21 @@ function documentOnReady() {
 
 	function initSwiper() {
 
+		let swiperAwards = new Swiper('.slider-awards', {
+			mousewheel: true,
+			slidesPerView: 'auto',
+			spaceBetween: 16,
+			loop: false,
+			scrollbar: {
+				el: '.swiper-scrollbar',
+				draggable: true,
+			},
+			navigation: {
+				nextEl: '.slider-awards__nav .swiper-button-next',
+				prevEl: '.slider-awards__nav .swiper-button-prev',
+			},
+		})
+
 		let swiperVisit = new Swiper('.slider-visit', {
 			enabled: false,
 			mousewheel: true,
