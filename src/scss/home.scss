@@ -405,16 +405,6 @@
     }
   }
 }
-.container {
-}
-.heading-subtitle {
-}
-.heading-title {
-}
-.paragraph {
-}
-.swiper {
-}
 .slider-awards {
   overflow: visible;
   // .slider-awards__nav
@@ -427,10 +417,6 @@
     }
   }
 }
-.swiper-wrapper {
-}
-.swiper-slide {
-}
 .slide-awards {
   width: 100%;
   min-height: 176px;
@@ -440,10 +426,27 @@
   justify-content: center;
   border-radius: 16px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  @media (any-hover: hover) {
+    &:hover {
+      .slide-awards__bg {
+        opacity: 0.7;
+      }
+    }
+  }
   @media (min-width: $pc) {
     min-height: 276px;
     border-radius: 24px;
     max-width: 276px;
+  }
+  // .slide-awards__bg
+  &__bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #BAADC6;
+    z-index: -1;
+    transition: opacity 0.4s ease 0s;
   }
   // .slide-awards__image-holder
   &__image-holder {
@@ -456,11 +459,6 @@
       width: 100%;
       max-width: 150px;
     }
-  }
-}
-.nav-slider {
-  // .nav-slider__scrollbar-wrapper
-  &__scrollbar-wrapper {
   }
 }
 //==== FAQ styles=============================================================================================
