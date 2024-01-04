@@ -171,6 +171,9 @@
   display: flex;
   flex-direction: column;
   row-gap: 16px;
+  @media (min-width: $pc) {
+    row-gap: 24px;
+  }
   // .heading__top
   &__top {
     display: flex;
@@ -356,4 +359,21 @@
 }
 .card {
   background: var(--Banya-Base-color-White-100);
+}
+.pause-btn, .full-video {
+  border-radius: 50%;
+  border: 1px solid var(--Banya-Base-color-White-100);
+  background: var(--Banya-Base-color-White-10);
+  padding: 7px;
+  position: absolute;
+  right: 16px;
+  cursor: pointer;
+  font-size: 16px;
+  z-index: 5;
+}
+.pause-btn {
+  bottom: 16px;
+}
+.full-video {
+  top: 16px;
 }

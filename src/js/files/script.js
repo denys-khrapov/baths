@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', documentOnReady);
 function documentOnReady() {
 	initSwiper();
 	initHoverNewsCard();
+	initPauseButton();
 
 	function initSwiper() {
 
@@ -131,8 +132,92 @@ function documentOnReady() {
 		}
 	}
 
+	function initPauseButton() {
+		const pauseButtons = document.querySelectorAll('.pause-btn');
+
+		pauseButtons.forEach(button => {
+			button.addEventListener('click', function () {
+				const video = this.closest('.experience__bg-holder').querySelector('video');
+				if (video.paused) {
+					video.play();
+					this.classList.remove('_icon-Play');
+					this.classList.add('_icon-Pause');
+				} else {
+					video.pause();
+					this.classList.remove('_icon-Pause');
+					this.classList.add('_icon-Play');
+				}
+			});
+		});
+	}
+
+	if (window.matchMedia('(min-width: 1280px)').matches) {
+		function toggleActiveClass(target) {
+			const parent = target.closest('.accordion-scroll');
+			if (window.getComputedStyle(target).display === 'block') {
+				parent.classList.add('active');
+			} else {
+				parent.classList.remove('active');
+			}
+		}
+
+		gsap.timeline({
+			scrollTrigger: {
+				trigger: '.experience',
+				scrub: 0.3,
+				start: 'center center',
+				// markers: true,
+				pin: true,
+				// onStart: () => disableScroll(),
+				// onComplete: () => enableScroll()
+			}
+		})
+				.to('.accordion-scroll__content', {
+					onStart: function () {
+						toggleActiveClass(this.targets()[0]); // Добавляем класс, когда начинается анимация
+					},
+					onUpdate: function () {
+						// Проверяем и обновляем классы при каждом обновлении анимации
+						this.targets().forEach(target => {
+							toggleActiveClass(target);
+						});
+					},
+					onRepeat: function () {
+						// Убедимся, что классы обновлены, если есть повторение
+						this.targets().forEach(target => {
+							toggleActiveClass(target);
+						});
+					},
+					onReverseComplete: function () {
+						// Удаляем класс, когда анимация полностью завершена в обратном направлении
+						toggleActiveClass(this.targets()[0]);
+					},
+					display: 'block',
+					duration: 1,
+					ease: 'none',
+					stagger: {
+						each: 2,
+						yoyo: true,
+						repeat: 1 // Удалить, если вы не хотите, чтобы анимация повторялась
+					}
+				});
+	} else {
+		document.querySelectorAll('.accordion-scroll__title').forEach(title => {
+			title.addEventListener('click', function () {
+				var accordion = this.parentElement;
+
+				if (accordion.classList.contains('active')) {
+					accordion.classList.remove('active');
+				} else {
+					document.querySelectorAll('.accordion-scroll.active').forEach(activeAccordion => {
+						activeAccordion.classList.remove('active');
+					});
+					accordion.classList.add('active');
+				}
+			});
+		});
+
+	}
 }
-
-
 
 
