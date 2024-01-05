@@ -5,6 +5,14 @@ function documentOnReady() {
 	initHoverNewsCard();
 	initPauseButton();
 
+
+	Fancybox.bind('[data-fancybox]', {
+		Thumbs: {
+			type: 'classic'
+		}
+	});
+
+
 	function initSwiper() {
 
 		let swiperAwards = new Swiper('.slider-awards', {
@@ -21,7 +29,25 @@ function documentOnReady() {
 				prevEl: '.slider-awards__nav .swiper-button-prev',
 			},
 		})
-
+		let swiperSenses = new Swiper('.slider-senses', {
+			mousewheel: true,
+			slidesPerView: 'auto',
+			spaceBetween: 16,
+			loop: false,
+			scrollbar: {
+				el: '.swiper-scrollbar',
+				draggable: true,
+			},
+			navigation: {
+				nextEl: '.slider-senses__nav .swiper-button-next',
+				prevEl: '.slider-senses__nav .swiper-button-prev',
+			},
+			breakpoints: {
+				1280: {
+					spaceBetween: 48
+				}
+			}
+		})
 		let swiperVisit = new Swiper('.slider-visit', {
 			enabled: false,
 			mousewheel: true,
@@ -41,6 +67,23 @@ function documentOnReady() {
 					},
 				},
 
+			}
+		})
+		let swiperHashtag = new Swiper('.slider-hashtag', {
+			slidesPerView: 'auto',
+			spaceBetween: 16,
+			loop: true,
+			speed: 3500,
+			autoplay: {
+				delay: 300,
+				disableOnInteraction: false
+			},
+			// freeMode: true,
+			// allowTouchMove: false,
+			breakpoints: {
+				1280: {
+					spaceBetween: 24
+				}
 			}
 		})
 		let swiperSelArticles = new Swiper('.slider-sel-articles', {
@@ -134,10 +177,10 @@ function documentOnReady() {
 
 	function initPauseButton() {
 		const pauseButtons = document.querySelectorAll('.pause-btn');
-
+		console.log(pauseButtons)
 		pauseButtons.forEach(button => {
 			button.addEventListener('click', function () {
-				const video = this.closest('.experience__bg-holder').querySelector('video');
+				const video = this.closest('.video-holder').querySelector('video');
 				if (video.paused) {
 					video.play();
 					this.classList.remove('_icon-Play');
@@ -168,28 +211,23 @@ function documentOnReady() {
 				start: 'center center',
 				// markers: true,
 				pin: true,
-				// onStart: () => disableScroll(),
-				// onComplete: () => enableScroll()
 			}
 		})
 				.to('.accordion-scroll__content', {
 					onStart: function () {
-						toggleActiveClass(this.targets()[0]); // Добавляем класс, когда начинается анимация
+						toggleActiveClass(this.targets()[0]);
 					},
 					onUpdate: function () {
-						// Проверяем и обновляем классы при каждом обновлении анимации
 						this.targets().forEach(target => {
 							toggleActiveClass(target);
 						});
 					},
 					onRepeat: function () {
-						// Убедимся, что классы обновлены, если есть повторение
 						this.targets().forEach(target => {
 							toggleActiveClass(target);
 						});
 					},
 					onReverseComplete: function () {
-						// Удаляем класс, когда анимация полностью завершена в обратном направлении
 						toggleActiveClass(this.targets()[0]);
 					},
 					display: 'block',
@@ -198,13 +236,13 @@ function documentOnReady() {
 					stagger: {
 						each: 2,
 						yoyo: true,
-						repeat: 1 // Удалить, если вы не хотите, чтобы анимация повторялась
+						repeat: 1
 					}
 				});
 	} else {
 		document.querySelectorAll('.accordion-scroll__title').forEach(title => {
 			title.addEventListener('click', function () {
-				var accordion = this.parentElement;
+				let accordion = this.parentElement;
 
 				if (accordion.classList.contains('active')) {
 					accordion.classList.remove('active');
@@ -216,7 +254,6 @@ function documentOnReady() {
 				}
 			});
 		});
-
 	}
 }
 
