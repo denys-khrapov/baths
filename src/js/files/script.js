@@ -5,13 +5,30 @@ function documentOnReady() {
 	initHoverNewsCard();
 	initPauseButton();
 
-
 	Fancybox.bind('[data-fancybox]', {
+		Toolbar: false,
 		Thumbs: {
 			type: 'classic'
-		}
+		},
 	});
 
+
+	// Mobile Menu
+	const iconMenu = document.querySelector('.menu-button');
+	const menuBody = document.querySelector('.sidebar-menu');
+
+	if (iconMenu) {
+		iconMenu.addEventListener('click', function (e) {
+			iconMenu.classList.toggle('active');
+			menuBody.classList.toggle('active');
+
+			if (iconMenu.classList.contains('active')) {
+				iconMenu.textContent = 'close';
+			} else {
+				iconMenu.textContent = 'menu';
+			}
+		});
+	}
 
 	function initSwiper() {
 
@@ -146,18 +163,63 @@ function documentOnReady() {
 				this.nextElementSibling
 		let isOpen = accordionContent.style.maxHeight
 		let accordionWrapper = this.closest('.accordion__wrapper')
+		let accordionSidebar = document.querySelector('.sidebar-menu .accordion__wrapper')
 
 		closeAllExcept(accordionWrapper.querySelector('.accordion__title'))
 		if (isOpen) {
 			accordionWrapper.querySelector('.accordion__title').classList.remove('active')
 			accordionContent.style.maxHeight = null
 			accordionWrapper.classList.remove('accordion-active')
+
+			accordionSidebar.querySelector('.accordion__title').classList.add(
+					'_icon-PlusCircle'
+			)
+			accordionSidebar.querySelector('.accordion__title').classList.remove(
+					'_icon-MinusCircle'
+			)
 		} else {
 			accordionWrapper.querySelector('.accordion__title').classList.add('active')
 			accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px'
 			accordionWrapper.classList.add('accordion-active')
+			accordionSidebar.querySelector('.accordion__title').classList.add(
+					'_icon-MinusCircle'
+			)
+			accordionSidebar.querySelector('.accordion__title').classList.remove(
+					'_icon-PlusCircle'
+			)
+		}
+		let windowWidth = window.innerWidth;
+		if (windowWidth >= 1280) {
+			// sideBarAccordion closing on page scroll
+			let isCursorOnSidebar = false;
+
+			document.querySelector('.sidebar-menu').addEventListener('mouseenter', () => {
+				isCursorOnSidebar = true;
+			});
+			document.querySelector('.sidebar-menu').addEventListener('mouseleave', () => {
+				isCursorOnSidebar = false;
+			});
+
+			window.addEventListener('scroll', () => {
+				if (!isCursorOnSidebar && accordionSidebar.classList.contains('accordion-active')) {
+					closeSidebarAccordion();
+				}
+			});
+		}
+
+		function closeSidebarAccordion() {
+			let accordionTitle = accordionSidebar.querySelector('.accordion__title');
+			let accordionContent = accordionSidebar.querySelector('.accordion__content');
+
+			accordionTitle.classList.remove('active');
+			accordionContent.style.maxHeight = null;
+			accordionSidebar.classList.remove('accordion-active');
+
+			accordionTitle.classList.add('_icon-PlusCircle');
+			accordionTitle.classList.remove('_icon-MinusCircle');
 		}
 	}
+
 
 	function initHoverNewsCard() {
 		let windowWidth = window.innerWidth;

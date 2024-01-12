@@ -201,6 +201,8 @@
     display: flex;
     flex-direction: column;
     row-gap: 32px;
+    position: relative;
+    z-index: 2;
     @media (min-width: $pc) {
       row-gap: 64px;
     }
@@ -217,6 +219,7 @@
     top: 50%;
     right: 0;
     transform: translateY(-50%);
+    //z-index: -1;
     img {
       width: 100%;
       object-fit: cover;
@@ -518,6 +521,7 @@
     visibility: visible;
     transition: all 0.4s ease 0s;
     z-index: 1;
+    pointer-events: none;
   }
   @media (any-hover: hover) {
     &:hover {
@@ -525,12 +529,6 @@
         opacity: 0;
         visibility: hidden;
       }
-    }
-  }
-  &:active {
-    &::before {
-      opacity: 0;
-      visibility: hidden;
     }
   }
   video, img {
@@ -1229,6 +1227,23 @@
       }
     }
   }
+  .accordion {
+    &__wrapper {
+      @media (any-hover: hover) {
+        &:hover {
+          .accordion__title {
+            background: var(--Banya-Base-color-Black-3);
+            color: var(--Banya-Brown-500);
+          }
+          .accordion__close {
+            &::before, &::after {
+              background: var(--Banya-Brown-500);
+            }
+          }
+        }
+      }
+    }
+  }
 }
 .accordion {
   display: flex;
@@ -1256,19 +1271,6 @@
         background: var(--Banya-Brown-500);
       }
     }
-    @media (any-hover: hover) {
-      &:hover {
-        .accordion__title {
-          background: var(--Banya-Base-color-Black-3);
-          color: var(--Banya-Brown-500);
-        }
-        .accordion__close {
-          &::before, &::after {
-            background: var(--Banya-Brown-500);
-          }
-        }
-      }
-    }
   }
   // .accordion__inner
   &__inner {
@@ -1282,6 +1284,7 @@
     padding: 12px 24px 12px 8px;
     width: 100%;
     border-radius: 12px;
+    cursor: pointer;
     transition: all 0.4s ease 0s;
     @media (min-width: $pc) {
       padding: 19.5px 40px 19.5px 16px;
@@ -1411,21 +1414,21 @@
   transition: background 0.4s ease 0s;
   display: flex;
   flex-direction: column;
-  @media (any-hover: hover) {
-    &:hover {
-      background: var(--Banya-Base-color-White-100);
-      .slide-sel-articles__image-holder {
-        img {
-          max-height: 196px;
-          opacity: 1;
-        }
-      }
-    }
-  }
   @media (min-width: $pc) {
     max-width: 376px;
     height: 476px;
     border-radius: 16px;
+    @media (any-hover: hover) {
+      &:hover {
+        background: var(--Banya-Base-color-White-100);
+        .slide-sel-articles__image-holder {
+          img {
+            max-height: 196px;
+            opacity: 1;
+          }
+        }
+      }
+    }
   }
   // .slide-sel-articles__link
   &__link {
